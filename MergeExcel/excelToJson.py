@@ -10,7 +10,7 @@ def ExcelToJson():
     print("当前目录:",dir_path)
     file_names = os.listdir(dir_path)
     all_data = pd.DataFrame()
-    path = "json"
+    path = dir_path + "\\" + "json"
     if(not os.path.exists(path)):
         os.makedirs(path)
     for file_name in file_names:
@@ -20,6 +20,7 @@ def ExcelToJson():
             data_dict = data.to_dict(orient='records')
             print("file_name:" + file_name)
             jsonFileName = path + "\\" + file_name.split(".")[0] + ".json"
+            # print(jsonFileName)
             with open(jsonFileName, "w") as file:
                 json_str = json.dump(data_dict, file)
     os.system("pause")
