@@ -48,13 +48,6 @@ def getLogDataByStrs(strs = ["", "1", "", ""]):
     '''获取字符串中的log信息'''
     res:list = []
     for i in range(0, len(strs), 4):
-        # logData = LogData()
-        # logData.commit_sha = (re.search(r'commit (\w+)', strs[i])).group(1)
-        # authorStrs = strs[i+1].split(" ")
-        # logData.author =  authorStrs[1]
-        # logData.email = authorStrs[2]
-        # logData.time = getDateTimeByStr(strs[i+2])
-        # logData.log = strs[i+3].lstrip()
 
         if len(strs[i:i+4]) >= 4:
             logData = getLogData(strs[i:i+4])
