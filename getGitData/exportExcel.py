@@ -35,7 +35,7 @@ if __name__ == "__main__":
     logList = gitLog.findLogsByName("c2909371614", logList)
     commitNumToDate = gitLog.findLogsByTimeZone(logList)
     print(commitNumToDate)
-    importExcel(commitNumToDate)
+    exportExcel(commitNumToDate)
     # data = toDF(commitNumToDate)
     # print(data)
     # hue = []

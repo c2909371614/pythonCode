@@ -43,16 +43,34 @@ def getLogDataByStrs(strs = ["", "1", "", ""]):
     '''获取字符串中的log信息'''
     res:list = []
     for i in range(0, len(strs), 4):
-        logData = LogData()
-        logData.commit_sha = (re.search(r'commit (\w+)', strs[i])).group(1)
-        authorStrs = strs[i+1].split(" ")
-        logData.author =  authorStrs[1]
-        logData.email = authorStrs[2]
-        logData.time = getDateTimeByStr(strs[i+2])
-        logData.log = strs[i+3].lstrip()
+        # logData = LogData()
+        # logData.commit_sha = (re.search(r'commit (\w+)', strs[i])).group(1)
+        # authorStrs = strs[i+1].split(" ")
+        # logData.author =  authorStrs[1]
+        # logData.email = authorStrs[2]
+        # logData.time = getDateTimeByStr(strs[i+2])
+        # logData.log = strs[i+3].lstrip()
+        logData = getLogData(strs[i:i+4])
         res.append(logData)
-        # logData.printEle()#打印转换完的信息
+        logData.printEle()#打印转换完的信息
     return res
+
+def getLogData(ss:list):
+    logData = LogData()
+    for i in range(0, 4):
+        match = re.search(r'^commit (\w+)', ss[i])
+        if match:
+            print("ss:",ss[i])
+            logData.commit_sha = match.group(1)
+        elif ss[i].find("Author") != -1:
+            authorStrs = ss[i].split(" ")
+            logData.author =  authorStrs[1]
+            logData.email = authorStrs[2]
+        elif ss[i].find("Date") != -1:
+            logData.time = getDateTimeByStr(ss[i])
+        else:
+            logData.log = ss[i].lstrip()
+    return logData
 
 def transLogInfo():
     '''获取日志并转换成特定数据'''
