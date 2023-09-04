@@ -14,7 +14,7 @@ def toDF(commitNumToDate:dict):
     data = pd.DataFrame(df)
     return data
 
-def importExcel(comToDate:dict):
+def exportExcel(comToDate:dict):
     dir_path = os.path.dirname(os.path.abspath(__file__))#当前目录
     file_names = os.listdir(dir_path)
     all_data = pd.DataFrame()
