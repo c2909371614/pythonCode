@@ -17,7 +17,12 @@ def get_git_log():
 def getDateTimeByStr(str):
     '''转换日期'''
     # print("str:",str)
-    time_obj = datetime.strptime(str, "Date:   %a %b %d %H:%M:%S %Y +0800")
+    str = str[:str.find("+")]
+    time_obj = ""
+    try:
+        time_obj = datetime.strptime(str, "Date:   %a %b %d %H:%M:%S %Y ")
+    except:
+        time_obj = ""
     return time_obj
 
 def getYMD_Time(time:datetime):
@@ -50,9 +55,11 @@ def getLogDataByStrs(strs = ["", "1", "", ""]):
         # logData.email = authorStrs[2]
         # logData.time = getDateTimeByStr(strs[i+2])
         # logData.log = strs[i+3].lstrip()
-        logData = getLogData(strs[i:i+4])
-        res.append(logData)
-        logData.printEle()#打印转换完的信息
+
+        if len(strs[i:i+4]) >= 4:
+            logData = getLogData(strs[i:i+4])
+            res.append(logData)
+            # logData.printEle()#打印转换完的信息
     return res
 
 def getLogData(ss:list):
@@ -60,7 +67,7 @@ def getLogData(ss:list):
     for i in range(0, 4):
         match = re.search(r'^commit (\w+)', ss[i])
         if match:
-            print("ss:",ss[i])
+            # print("ss:",ss[i])
             logData.commit_sha = match.group(1)
         elif ss[i].find("Author") != -1:
             authorStrs = ss[i].split(" ")
@@ -103,6 +110,8 @@ def findLogsByTimeZone(logList:list, limitStr = ["2022-08-30", "2099-08-30"]):
     timeMin = copy.deepcopy(limitMax)
     commitNumToDate = {}
     for i in range(0, len(logList)):
+        if logList[i].time == None:
+            continue
         time:datetime = getYMD_Time(logList[i].time) 
         if time <= limitMax and time >= limitMin:
             timeStr:str = time.strftime(dateFormat)#索引
