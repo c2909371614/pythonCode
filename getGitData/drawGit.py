@@ -10,8 +10,8 @@ commitNumToDate = gitLog.findLogsByTimeZone(logList)
 print(commitNumToDate)
 
 # hue = []
-print(commitNumToDate.keys(), commitNumToDate.values())
+# print(commitNumToDate.keys(), commitNumToDate.values())
 plt.scatter(commitNumToDate.keys(), commitNumToDate.values())
-plt.show()
+# plt.show()
 
             
