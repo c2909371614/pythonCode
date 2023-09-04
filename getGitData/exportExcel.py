@@ -46,13 +46,13 @@ def exportExcel(comToDate:dict):
 def exportMultiSheet(logList:list):
     '''多个sheet, author作为sheet name'''
     writer = getExcelWriter("gitLogMulti")
-    data_list = {}
-    for i in range(0, len(logList)):
-        author = logList[i].author
-        if data_list.get(author) == None:
-            data_list[author] = []
-        data_list[author].append(logList[i])
-    log_time_dic = {}
+    # data_list = {}
+    # for i in range(0, len(logList)):
+    #     author = logList[i].author
+    #     if data_list.get(author) == None:
+    #         data_list[author] = []
+    #     data_list[author].append(logList[i])
+    data_list = gitLog.getLogsDic(logList)
     print("keys:", data_list.keys())
     for key in data_list.keys():
         comNumToDate = gitLog.findLogsByTimeZone(data_list[key])

@@ -93,6 +93,16 @@ def findLogsByName(name:str, logList):
             res.append(logList[i])
     return res
 
+def getLogsDic(logList:list):
+    '''通过名字分组'''
+    data_list = {}
+    for i in range(0, len(logList)):
+        author = logList[i].author
+        if data_list.get(author) == None:
+            data_list[author] = []
+        data_list[author].append(logList[i])
+    return data_list
+
 def findLogsByTimeZone(logList:list, limitStr = ["2022-08-30", "2099-08-30"]):
     '''限制搜索区间，获取commit次数'''
     # res = []
