@@ -53,6 +53,7 @@ def exportMultiSheet(logList:list):
             data_list[author] = []
         data_list[author].append(logList[i])
     log_time_dic = {}
+    print("keys:", data_list.keys())
     for key in data_list.keys():
         comNumToDate = gitLog.findLogsByTimeZone(data_list[key])
         print(key, comNumToDate)

@@ -103,7 +103,7 @@ def findLogsByTimeZone(logList:list, limitStr = ["2022-08-30", "2099-08-30"]):
     timeMin = copy.deepcopy(limitMax)
     commitNumToDate = {}
     for i in range(0, len(logList)):
-        if logList[i].time == None:
+        if logList[i].time == None or not isinstance(logList[i].time, datetime):
             continue
         time:datetime = getYMD_Time(logList[i].time) 
         if time <= limitMax and time >= limitMin:
