@@ -128,7 +128,7 @@ def findLogsByTimeZone(logList:list, limitStr = ["2022-08-30", "2099-08-30"]):
                 timeMax = copy.deepcopy(time)
             if time < timeMin:
                 timeMin = copy.deepcopy(time)
-    commitNumToDate = dict(sorted(commitNumToDate.items()))
+    commitNumToDate = dict(sorted(commitNumToDate.items(), reverse=True))
     return commitNumToDate
 
 if __name__ == '__main__':
