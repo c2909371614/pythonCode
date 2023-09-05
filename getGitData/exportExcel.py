@@ -2,7 +2,7 @@
 
 import math
 import GetGitLog as gitLog
-
+import re
 import os
 import pandas as pd
 
@@ -27,14 +27,6 @@ def getExcelWriter(name:str):
 
 def exportExcel(comToDate:dict):
     '''单个sheet'''
-    # dir_path = os.path.dirname(os.path.abspath(__file__))#当前目录
-    # file_names = os.listdir(dir_path)
-    # all_data = pd.DataFrame()
-    # path = "res"
-    # if(not os.path.exists(path)):
-    #     os.makedirs(path)
-    # resPathName = path + '/gitLogTime.xlsx'
-    # writer = pd.ExcelWriter(resPathName, engine='openpyxl')
     writer = getExcelWriter("gitLogTime")
     data = toDF(comToDate)
     file_name = "sheet1"
@@ -43,22 +35,24 @@ def exportExcel(comToDate:dict):
     writer.save()
     os.system("pause")
 
+def getLegalNameStr(key:str):
+    reg = r'\[.*?\]'
+    temp = re.match(reg, key)
+    name = re.sub(reg, "_", key)
+    return name
+
+
 def exportMultiSheet(logList:list):
     '''多个sheet, author作为sheet name'''
     writer = getExcelWriter("gitLogMulti")
-    # data_list = {}
-    # for i in range(0, len(logList)):
-    #     author = logList[i].author
-    #     if data_list.get(author) == None:
-    #         data_list[author] = []
-    #     data_list[author].append(logList[i])
     data_list = gitLog.getLogsDic(logList)
-    print("keys:", data_list.keys())
+    # print("keys:", data_list.keys())
     for key in data_list.keys():
         comNumToDate = gitLog.findLogsByTimeZone(data_list[key])
         print(key, comNumToDate)
         data = toDF(comNumToDate)
-        data.to_excel(writer, sheet_name = key, index=False)
+        name = getLegalNameStr(key) 
+        data.to_excel(writer, sheet_name = name, index=False)
     writer.save()
     # print(data_list)
 
