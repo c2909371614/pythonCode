@@ -18,11 +18,11 @@ def getDateTimeByStr(str):
     '''转换日期'''
     # print("str:",str)
     str = str[:str.find("+")]
-    time_obj = ""
+    time_obj = None
     try:
         time_obj = datetime.strptime(str, "Date:   %a %b %d %H:%M:%S %Y ")
     except:
-        time_obj = ""
+        time_obj = None
     return time_obj
 
 def getYMD_Time(time:datetime):
