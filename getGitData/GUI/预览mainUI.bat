@@ -1,0 +1,2 @@
+python mainUI.py
+pause
