@@ -1,5 +1,6 @@
 #coding = utf-8
 
+import os
 import subprocess
 from datetime import datetime
 from LogData import LogData
@@ -11,7 +12,10 @@ def get_git_log():
     # 使用 subprocess 运行 git log 命令，并捕获输出
     # result = subprocess.run("git log", text = True)
     # result = subprocess.Popen("git log", text = True)
-    result = subprocess.check_output("git log", encoding="utf-8")
+    # cwd = os.path.dirname(os.path.abspath(__file__))#当前目录D:\Doc\cocos-engine
+    cwd = "D:\Doc\cocos-engine"#绝对路径
+    result = subprocess.check_output("git log", encoding="utf-8", cwd = cwd)
+    print("cwd:",cwd)
     return result
 
 def getDateTimeByStr(str):
@@ -131,11 +135,17 @@ def findLogsByTimeZone(logList:list, limitStr = ["2022-08-30", "2099-08-30"]):
     commitNumToDate = dict(sorted(commitNumToDate.items(), reverse=True))
     return commitNumToDate
 
+def displayLogDic(data_list:dict):
+    for key in data_list.keys():
+        comNumToDate = findLogsByTimeZone(data_list[key])
+        print(key, comNumToDate)
+
 if __name__ == '__main__':
     logList = transLogInfo()
-    logList = findLogsByName("c2909371614", logList)
-    commitNumToDate = findLogsByTimeZone(logList)
-    print(commitNumToDate)
-    
+    # logList = findLogsByName("c2909371614", logList)
+    # commitNumToDate = findLogsByTimeZone(logList)
+    # print(commitNumToDate)
+    data_list = getLogsDic(logList)
+    displayLogDic(data_list)
 
     
