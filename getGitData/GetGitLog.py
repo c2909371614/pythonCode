@@ -12,8 +12,8 @@ def get_git_log():
     # 使用 subprocess 运行 git log 命令，并捕获输出
     # result = subprocess.run("git log", text = True)
     # result = subprocess.Popen("git log", text = True)
-    # cwd = os.path.dirname(os.path.abspath(__file__))#当前目录D:\Doc\cocos-engine
-    cwd = "D:\Doc\cocos-engine"#绝对路径
+    cwd = os.path.dirname(os.path.abspath(__file__))#当前目录D:\Doc\cocos-engine
+    # cwd = "D:\Doc\cocos-engine"#绝对路径
     result = subprocess.check_output("git log", encoding="utf-8", cwd = cwd)
     print("cwd:",cwd)
     return result
