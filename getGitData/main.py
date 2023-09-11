@@ -8,28 +8,30 @@ import GetGitLog as gitLog
 import exportExcel as exExcel
 import drawGit
 
-logList = None
+class Util:
 
-def onClickExportExcel():
-    print("click export")
-    if logList == None:
-        logList = gitLog.transLogInfo()
-    exExcel.exportMultiSheet(logList)
+    logList = None
 
-def onClickDraw():
-    print("click draw")
-    if logList == None:
-        logList = gitLog.transLogInfo()
-    drawGit.drawMultiPlot(logList)
+    def onClickExportExcel(self):
+        print("click export")
+        if self.logList == None:
+            self.logList = gitLog.transLogInfo()
+        exExcel.exportMultiSheet(logList)
 
-def addEvent(ui:Ui_MainWindow):
-    ui.pushButton.clicked.connect(onClickExportExcel)
-    ui.pushButton_2.clicked.connect(onClickDraw)
+    def onClickDraw(self):
+        print("click draw")
+        if self.logList == None:
+            self.logList = gitLog.transLogInfo()
+        drawGit.drawMultiPlot(logList)
 
-def updateListWidet(ui:Ui_MainWindow, names:list):
-    # names = ["ab", "bc", "de"]
-    for i in range(0, len(names)):
-        ui.listWidget.insertItem(i, names[i])
+    def addEvent(self, ui:Ui_MainWindow):
+        ui.pushButton.clicked.connect(self.onClickExportExcel)
+        ui.pushButton_2.clicked.connect(self.onClickDraw)
+
+    def updateListWidet(self, ui:Ui_MainWindow, names:list):
+        # names = ["ab", "bc", "de"]
+        for i in range(0, len(names)):
+            ui.listWidget.insertItem(i, names[i])
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
@@ -39,8 +41,9 @@ if __name__ == "__main__":
 
     logList = gitLog.transLogInfo()
     data_list = gitLog.getLogsDic(logList)#名字分组
-    addEvent(ui)
-    updateListWidet(ui, list(data_list.keys()))
+    util = Util()
+    util.addEvent(ui)
+    util.updateListWidet(ui, list(data_list.keys()))
     
     MainWindow.show()
     sys.exit(app.exec_())

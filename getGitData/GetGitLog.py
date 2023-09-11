@@ -14,8 +14,8 @@ def get_git_log():
     # result = subprocess.Popen("git log", text = True)
     cwd = os.path.dirname(os.path.abspath(__file__))#当前目录D:\Doc\cocos-engine
     # cwd = "D:\Doc\cocos-engine"#绝对路径
-    result = subprocess.check_output("git log", encoding="utf-8", cwd = cwd)
     print("cwd:",cwd)
+    result = subprocess.check_output("git log", encoding="utf-8", cwd = cwd)
     return result
 
 def getDateTimeByStr(str):
