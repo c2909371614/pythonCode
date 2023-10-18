@@ -28,7 +28,10 @@ def analysis():
     pos1 = removeErrorPos(pos1, pos2)
     for i in range(len(pos1)):
         if(pos2[i] - pos1[i] <= 100):
-            print(txtStr[pos1[i]:pos2[i]])
+            item = txtStr[pos1[i]:pos2[i]].replace("代表的谶言 ：","")
+            item = item.replace("代表的谶 ：","")
+            item = item.replace("代表的谶 :","")
+            print(item)
     
 
 if __name__ == "__main__":
