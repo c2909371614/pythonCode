@@ -31,6 +31,8 @@ def analysis():
             item = txtStr[pos1[i]:pos2[i]].replace("代表的谶言 ：","")
             item = item.replace("代表的谶 ：","")
             item = item.replace("代表的谶 :","")
+            item = item.replace("\n","")
+            item = item.replace(" ","")
             print(item)
     
 
